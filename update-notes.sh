@@ -1,6 +1,9 @@
 #!/bin/bash
 #
-# 00update-all.sh
+# @(!--#) @(#) update-notes.sh, sversion 0.1.0, fversion 002, 14-november-2023
+#
+# update the index.html files in all directories in the notes directory structure
+#
 
 #
 # Main
@@ -50,7 +53,8 @@ do
 
 			if [ $retcode -ne 0 ]
 			then
-				echo "$progname: INFO: no markdown files in $dir" 1>&2
+				/bin/true
+				# echo "$progname: INFO: no markdown files in $dir" 1>&2
 			else
 				for markdown in *.md
 				do
