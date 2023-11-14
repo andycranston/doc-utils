@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #
-# @(!--#) @(#) txt2html.py, sversion 0.1.0, fversion 001, 27-october-2023
+# @(!--#) @(#) txt2html.py, sversion 0.1.0, fversion 002, 14-november-2023
 #
 # very basic text (.txt) to HTML converter
 #
@@ -72,89 +72,9 @@ def htmlescape(c):
 
 # ############################################################### #
 
-def oneword(word):
-    highlight = False
-
-    if len(word) >= 3:
-        if word[0] == '`':
-            highlight = True
-            word = word[1:]
-
-    if highlight:
-        print('<b>', end='')
-
-    for c in word:
-        if c == '`':
-            if highlight:
-                print('</b>', end='')
-        else:
-            print(htmlescape(c), end='')
-
-    return
-
-# ############################################################### #
-
-def lineofwords(words):
-    count = 0
-
-    for word in words:
-        count += 1
-
-        if count > 1:
-            print(' ', end='')
-
-        oneword(word)
-
-    return
-
-# ############################################################### #
-
 def lineofcode(line):
     for c in line:
         print(htmlescape(c), end='')
-
-# ############################################################### #
-
-def heading(line):
-    words = line.split()
-
-    headingsize = len(words[0])
-
-    if headingsize > 6:
-        headingsize = 6
-
-    print('<h{}>'.format(headingsize), end='')
-
-    lineofwords(words[1:])
-
-    print('</h{}>'.format(headingsize))
-
-    return
-
-# ############################################################### #
-            
-def listitem(line):
-    print('<li>', end='')
-
-    lineofwords(line.split())
-
-    print('</li>')
-
-    return
-
-# ############################################################### #
-
-def alldashes(line):
-    if len(line) <= 8:
-        rc = False
-    else:
-        rc = True
-        for c in line:
-            if c != '-':
-                rc = False
-                break
-
-    return rc
 
 # ############################################################### #
 
@@ -209,7 +129,7 @@ def main():
     print('<head>')
 
     print('<title>', end='')
-    oneword(title)
+    lineofcode(title)
     print('</title>')
 
     print('<style>')
@@ -223,7 +143,7 @@ def main():
     print('<pre>')
 
     for line in lines:
-        lineofwords(line.split())
+        lineofcode(line)
         print('')
 
     print('</pre>')
